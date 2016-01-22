@@ -28,6 +28,14 @@ public class ConfigurationManager {
       bandanaManager.setValue(GLOBAL_CONTEXT, option.getBandanaKey(), webhookUrl);
    }
 
+   public void setSpaceWebhookUrl(String spaceKey, String spWebhookUrl) {
+      bandanaManager.setValue(new ConfluenceBandanaContext(spaceKey), ConfigurationOption.SP_WEBHOOK_URL.getBandanaKey(), spWebhookUrl);
+   }
+
+   public String getSpaceWebhookUrl(String spaceKey) {
+      return getBandanaValue(new ConfluenceBandanaContext(spaceKey), ConfigurationOption.SP_WEBHOOK_URL);
+   }
+
    public void setSpaceChannels(String spaceKey, String channels) {
       bandanaManager.setValue(new ConfluenceBandanaContext(spaceKey), ConfigurationOption.CHANNELS.getBandanaKey(), channels);
    }

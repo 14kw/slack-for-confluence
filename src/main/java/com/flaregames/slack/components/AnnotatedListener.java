@@ -65,9 +65,18 @@ public class AnnotatedListener implements DisposableBean, InitializingBean {
          return;
       }
       SlackMessage message = getMessage(page, action);
+      String spWebhookUrl = getSpWebhookUrl(page);
       for (String channel : getChannels(page)) {
-         sendMessage(channel, message);
+         sendMessage(spWebhookUrl, channel, message);
       }
+   }
+
+   private String getSpWebhookUrl(AbstractPage page) {
+      String spWebhookUrl = configurationManager.getSpaceWebhookUrl(page.getSpaceKey());
+      //if (spWebhookUrl.isEmpty()) {
+      //   return false;
+      //}
+      return spWebhookUrl;
    }
 
    private List<String> getChannels(AbstractPage page) {
@@ -86,11 +95,17 @@ public class AnnotatedListener implements DisposableBean, InitializingBean {
       return appendPersonalSpaceUrl(message, user);
    }
 
-   private void sendMessage(String channel, SlackMessage message) {
+   private void sendMessage(String spWebhookUrl, String channel, SlackMessage message) {
       LOGGER.info("Sending to {} on channel {} with message {}.", configurationManager.getWebhookUrl(), channel,
             message.toString());
       try {
-         new Slack(configurationManager.getWebhookUrl()).sendToChannel(channel).push(message);
+         String webhookUrl = "";
+         if (spWebhookUrl != "") {
+           webhookUrl = spWebhookUrl;
+         } else {
+           webhookUrl = configurationManager.getWebhookUrl();
+         }
+         new Slack(webhookUrl).sendToChannel(channel).push(message);
       }
       catch (IOException e) {
          LOGGER.error("Error when sending Slack message", e);

@@ -8,6 +8,7 @@ public final class ViewSpaceConfigurationAction extends AbstractSpaceAdminAction
    private static final long          serialVersionUID = 5691912273454934901L;
 
    private final ConfigurationManager configurationManager;
+   private String                     spWebhookUrl;
    private String                     channels;
    private boolean                    successFullUpdate;
 
@@ -23,8 +24,17 @@ public final class ViewSpaceConfigurationAction extends AbstractSpaceAdminAction
 
    @Override
    public String execute() {
+      setSpWebhookUrl(configurationManager.getSpaceWebhookUrl(key));
       setChannels(configurationManager.getSpaceChannels(key));
       return Action.SUCCESS;
+   }
+
+   public void setSpWebhookUrl(String spWebhookUrl) {
+      this.spWebhookUrl = spWebhookUrl;
+   }
+
+   public String getSpWebhookUrl() {
+      return spWebhookUrl;
    }
 
    public void setChannels(String channels) {

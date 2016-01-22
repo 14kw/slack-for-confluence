@@ -53,8 +53,14 @@
     </p>
 
     <div class="field-group">
-        <label for="channels">Channels (without #, comma-separated)</label>
+      <div>
+	<label for="spWebhookUrl">Webhook URL (default setting overwrite option.)</label>
+	<input id="spWebhookUrl" class="text long-field" type="text" name="spWebhookUrl" value="$!action.spWebhookUrl"/>
+      </div>
+      <div>
+        <label for="channels">Channels (require set channel. without #, comma-separated.)</label>
         <input id="channels" class="text long-field" type="text" name="channels" value="$!action.channels"/>
+      </div>
     </div>
 
     <div class="buttons-container">

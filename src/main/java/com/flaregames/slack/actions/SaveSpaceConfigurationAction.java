@@ -18,6 +18,7 @@ public class SaveSpaceConfigurationAction extends ConfluenceActionSupport {
    private SpaceManager         spaceManager;
 
    private String               key;
+   private String		spWebhookUrl;
    private String               channels;
 
    @Override
@@ -37,6 +38,7 @@ public class SaveSpaceConfigurationAction extends ConfluenceActionSupport {
    @Override
    @RequireSecurityToken(true)
    public String execute() throws Exception {
+      configurationManager.setSpaceWebhookUrl(key, spWebhookUrl);
       configurationManager.setSpaceChannels(key, channels);
       return Action.SUCCESS;
    }
@@ -47,6 +49,14 @@ public class SaveSpaceConfigurationAction extends ConfluenceActionSupport {
 
    public void setKey(String key) {
       this.key = key;
+   }
+
+   public String getSpWebhookUrl() {
+      return spWebhookUrl;
+   }
+
+   public void setSpWebhookUrl(String spWebhookUrl) {
+      this.spWebhookUrl = spWebhookUrl;
    }
 
    public String getChannels() {
