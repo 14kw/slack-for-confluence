@@ -53,14 +53,12 @@
     </p>
 
     <div class="field-group">
-      <div>
-	<label for="spWebhookUrl">Webhook URL (default setting overwrite option.)</label>
-	<input id="spWebhookUrl" class="text long-field" type="text" name="spWebhookUrl" value="$!action.spWebhookUrl"/>
-      </div>
-      <div>
-        <label for="channels">Channels (require set channel. without #, comma-separated.)</label>
+       <label for="spWebhookUrl">Webhook URL (default setting overwrite option.)</label>
+       <input id="spWebhookUrl" class="text long-field" type="text" name="spWebhookUrl" value="$!action.spWebhookUrl"/>
+    </div>
+    <div class="field-group">
+        <label for="channels">Channels (require set channel. without #, comma-separated.) <span class="aui-icon icon-required">(required)</span></label>
         <input id="channels" class="text long-field" type="text" name="channels" value="$!action.channels"/>
-      </div>
     </div>
 
     <div class="buttons-container">

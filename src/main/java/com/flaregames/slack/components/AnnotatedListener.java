@@ -73,9 +73,9 @@ public class AnnotatedListener implements DisposableBean, InitializingBean {
 
    private String getSpWebhookUrl(AbstractPage page) {
       String spWebhookUrl = configurationManager.getSpaceWebhookUrl(page.getSpaceKey());
-      //if (spWebhookUrl.isEmpty()) {
-      //   return false;
-      //}
+      if (spWebhookUrl.isEmpty()) {
+         return "";
+      }
       return spWebhookUrl;
    }
 
