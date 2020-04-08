@@ -16,8 +16,10 @@ import org.springframework.beans.factory.InitializingBean;
 
 import com.atlassian.confluence.event.events.content.ContentEvent;
 import com.atlassian.confluence.event.events.content.blogpost.BlogPostCreateEvent;
+import com.atlassian.confluence.event.events.content.blogpost.BlogPostUpdateEvent;
 import com.atlassian.confluence.event.events.content.page.PageCreateEvent;
 import com.atlassian.confluence.event.events.content.page.PageUpdateEvent;
+import com.atlassian.confluence.event.events.content.comment.CommentCreateEvent;
 import com.atlassian.confluence.pages.AbstractPage;
 import com.atlassian.confluence.pages.TinyUrl;
 import com.atlassian.confluence.user.ConfluenceUser;
@@ -50,6 +52,11 @@ public class AnnotatedListener implements DisposableBean, InitializingBean {
    }
 
    @EventListener
+   public void blogPostUpdateEvent(BlogPostUpdateEvent event) {
+      sendMessages(event, event.getBlogPost(), "blog updated");
+   }
+
+   @EventListener
    public void pageCreateEvent(PageCreateEvent event) {
       sendMessages(event, event.getPage(), "new page created");
    }
@@ -57,6 +64,11 @@ public class AnnotatedListener implements DisposableBean, InitializingBean {
    @EventListener
    public void pageUpdateEvent(PageUpdateEvent event) {
       sendMessages(event, event.getPage(), "page updated");
+   }
+
+   @EventListener
+   public void commentCreateEvent(CommentCreateEvent event) {
+      sendMessages(event, (AbstractPage)(event.getComment().getContainer()), "comment created");
    }
 
    private void sendMessages(ContentEvent event, AbstractPage page, String action) {
